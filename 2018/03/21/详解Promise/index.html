@@ -1,0 +1,373 @@
+<!DOCTYPE html><html lang="en"><!-- Head tag --><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="&#x987B;&#x5F25;&#x7EB3;&#x82A5;&#x5B50;">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Zwe1" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        &#x8BE6;&#x89E3;Promise&#xFF5C;undefined
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2018/03/21/&#x8BE6;&#x89E3;Promise/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- switch banner background-img -->
+    <script>
+    if (theme.switch_banner){ 
+        var number_of_banners = 6;
+        var randnum = Math.floor(Math.random() * number_of_banners + 1);
+        document.getElementById("container")[0].style.backgroundImage = "url(/css/images/banner" + randnum + ".jpg)";
+    } else { 
+        document.getElementById("container")[0].style.backgroundImage = "url(/css/images/banner.jpg)";
+    } 
+</script></head><body ontouchstart="" class="animated fadeIn"><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+<style>
+
+    header.intro-header {
+        background-image: url('./img/1.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+
+<!-- Navigation --><nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost="true" data-istags="false
+" data-ishome="false">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Zwe1
+                </span>
+                &apos;s Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+
+<img class="wechat-title-img" src="./img/1.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('./img/1.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>&#x8BE6;&#x89E3;Promise</h1>
+                    
+                    <span class="meta">
+                         &#x4F5C;&#x8005; Zwe1
+                        <span>
+                          &#x65E5;&#x671F; 2018-03-21
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#ES6" title="ES6">ES6</a>
+                        
+                        <a class="tag" href="/tags/#Promise" title="Promise">Promise</a>
+                        
+                        <a class="tag" href="/tags/#&#x5F02;&#x6B65;&#x7F16;&#x7A0B;" title="&#x5F02;&#x6B65;&#x7F16;&#x7A0B;">&#x5F02;&#x6B65;&#x7F16;&#x7A0B;</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            &#x8BE6;&#x89E3;Promise
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h1 id="Promise&#x5F02;&#x6B65;&#x7F16;&#x7A0B;"><a href="#Promise&#x5F02;&#x6B65;&#x7F16;&#x7A0B;" class="headerlink" title="Promise&#x5F02;&#x6B65;&#x7F16;&#x7A0B;"></a>Promise&#x5F02;&#x6B65;&#x7F16;&#x7A0B;</h1><h2 id="Promise&#x7684;&#x542B;&#x4E49;"><a href="#Promise&#x7684;&#x542B;&#x4E49;" class="headerlink" title="Promise&#x7684;&#x542B;&#x4E49;:"></a>Promise&#x7684;&#x542B;&#x4E49;:</h2><p>  &#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF0C;&#x65E0;&#x9700;&#x518D;&#x5199;&#x590D;&#x6742;&#x7684;&#x5D4C;&#x5957;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;&#x6E05;&#x6670;&#x7684;&#x94FE;&#x5F0F;&#x8BED;&#x6CD5;&#xFF0C;&#x66F4;&#x52A0;&#x7B80;&#x6D01;&#x7F8E;&#x89C2;&#x3002;</p>
+<h3 id="&#x7279;&#x70B9;&#xFF1A;"><a href="#&#x7279;&#x70B9;&#xFF1A;" class="headerlink" title="&#x7279;&#x70B9;&#xFF1A;"></a>&#x7279;&#x70B9;&#xFF1A;</h3><ol>
+<li>Promise&#x5BF9;&#x8C61;&#x6709;&#x4E09;&#x4E2A;&#x72B6;&#x6001;&#xFF1A;peding(&#x8FDB;&#x884C;&#x4E2D;)&#x3001;fulfilled(&#x5DF2;&#x6210;&#x529F;)&#x3001;rejected(&#x5DF2;&#x5931;&#x8D25;)&#x3002;</li>
+<li>Promise&#x7684;&#x72B6;&#x6001;&#x53D8;&#x5316;&#x53EA;&#x6709;&#x4E24;&#x79CD;&#x53EF;&#x80FD;&#xFF1A;&#x4ECE;peding&#x53D8;&#x4E3A;fulfilled&#x6216;&#x4ECE;peding&#x53D8;&#x4E3A;rejected&#x3002;<br>&#x53D8;&#x5316;&#x4EA7;&#x751F;&#x540E;&#x4F1A;&#x51DD;&#x56FA;&#xFF0C;&#x8FD9;&#x65F6;&#x88AB;&#x79F0;&#x4E3A;resolved(&#x5DF2;&#x5B9A;&#x578B;)&#x3002;</li>
+</ol>
+<h2 id="&#x57FA;&#x672C;&#x4F7F;&#x7528;&#xFF1A;"><a href="#&#x57FA;&#x672C;&#x4F7F;&#x7528;&#xFF1A;" class="headerlink" title="&#x57FA;&#x672C;&#x4F7F;&#x7528;&#xFF1A;"></a>&#x57FA;&#x672C;&#x4F7F;&#x7528;&#xFF1A;</h2><pre><code>new Promise((resolve, reject) =&gt; {  
+  resolve(1);  
+  console.log(2);  
+}).then(r =&gt; {  
+  console.log(r);  
+});  
+// 2  
+// 1  
+</code></pre><p><strong>&#x6CE8;&#x610F;</strong>&#xFF1A;&#x7ACB;&#x5373; resolv &#x6216; reject&#x7684; Promise &#x662F;&#x5728;&#x672C;&#x8F6E;&#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;&#x7684;&#x672B;&#x5C3E;&#x6267;&#x884C;&#xFF0C;&#x603B;&#x662F;&#x665A;&#x4E8E;&#x672C;&#x8F6E;&#x5FAA;&#x73AF;&#x7684;&#x540C;&#x6B65;&#x4EFB;&#x52A1;&#x3002;</p>
+<pre><code>getJSON(&quot;/post/1.json&quot;).then(function(post) {
+  return getJSON(post.commentURL);
+}).then(function funcA(comments) {
+  console.log(&quot;resolved: &quot;, comments);
+}, function funcB(err){
+  console.log(&quot;rejected: &quot;, err);
+});
+</code></pre><p>  Promise&#x5BF9;&#x8C61;&#x63A5;&#x53D7;&#x4E00;&#x4E2A; function &#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;function&#x7684;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x4E3A;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x6210;&#x529F;&#x65F6;&#x7684;&#x56DE;&#x8C03; resolve &#x548C;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x5931;&#x8D25;&#x65F6;&#x7684;&#x56DE;&#x8C03; reject&#xFF0C;resolve&#x548C;reject&#x51FD;&#x6570;&#x7531;js&#x5F15;&#x64CE;&#x63D0;&#x4F9B;&#xFF0C;&#x65E0;&#x9700;&#x81EA;&#x5DF1;&#x90E8;&#x7F72;&#xFF0C;resolve&#x548C;reject&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x63A5;&#x53D7;&#x53C2;&#x6570;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6B64;&#x65B9;&#x6CD5;&#x7ED3;&#x6784;&#x5411;&#x5916;&#x90E8;&#x73AF;&#x5883;&#x629B;&#x51FA;&#x6570;&#x636E;&#x548C;&#x4FE1;&#x606F;&#x3002;</p>
+<h2 id="Promise-prototype-then"><a href="#Promise-prototype-then" class="headerlink" title="Promise.prototype.then()"></a>Promise.prototype.then()</h2><p>  then()&#x65B9;&#x6CD5;&#x662F;&#x5B9A;&#x4E49;&#x5728;Promise&#x5BF9;&#x8C61;&#x539F;&#x578B;&#x4E0A;&#x7684;&#xFF0C;&#x7528;&#x4E8E;&#x4E3A;Promise&#x5B9E;&#x4F8B;&#x6DFB;&#x52A0;&#x72B6;&#x6001;&#x6539;&#x53D8;&#x65F6;&#x7684;&#x56DE;&#x8C03;&#x3002;<br>  Promise&#x5B9E;&#x4F8B;&#x751F;&#x6210;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;then&#x65B9;&#x6CD5;&#x63A5;&#x6536;&#x524D;&#x9762;Promises&#x5B9E;&#x4F8B;&#x7684;&#x8FD4;&#x56DE;&#x72B6;&#x6001;&#xFF0C;then &#x65B9;&#x6CD5;&#x7684;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x4E3A; resolve &#x65F6;&#x6267;&#x884C;&#x7684;&#x56DE;&#x8C03;&#x548C; reject&#x65F6;&#x6267;&#x884C;&#x7684;&#x56DE;&#x8C03;&#xFF08;&#x53EF;&#x9009;&#x9879;&#xFF09;&#xFF0C;then&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x65B0;&#x7684;Promise&#x5BF9;&#x8C61;&#xFF0C;&#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x91C7;&#x7528;&#x94FE;&#x5F0F;&#x5199;&#x6CD5;&#xFF0C;then&#x4F1A;&#x6839;&#x636E;&#x987A;&#x5E8F;&#xFF0C;&#x4F9D;&#x6B21;&#x6267;&#x884C;&#x3002;</p>
+<h2 id="Promise-prototype-catch"><a href="#Promise-prototype-catch" class="headerlink" title="Promise.prototype.catch()"></a>Promise.prototype.catch()</h2><p>  Promise.prototype.catch()&#x65B9;&#x6CD5;&#x76F8;&#x5F53;&#x4E8E;.then(null&#xFF0C;rejection)&#x3002;<br>  resolve&#x56DE;&#x8C03;&#x53EF;&#x4EE5;&#x63A5;&#x53D7;promise&#x4E2D;&#x7684;&#x6570;&#x636E;&#xFF0C;reject&#x56DE;&#x8C03;&#x63A5;&#x6536;&#x4E00;&#x4E2A; Error &#x5BF9;&#x8C61;&#x5B9E;&#x4F8B;&#x3002;&#x6216;&#x5728;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x7684;&#x6700;&#x540E;&#x901A;&#x8FC7; catch &#x65B9;&#x6CD5;&#x6765;&#x63A5;&#x6536;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x3002;<br>  Promise &#x5BF9;&#x8C61;&#x7684;&#x9519;&#x8BEF;&#x5177;&#x6709;&#x201C;&#x5192;&#x6CE1;&#x201D;&#x6027;&#x8D28;&#xFF0C;&#x4F1A;&#x4E00;&#x76F4;&#x5411;&#x540E;&#x4F20;&#x9012;&#xFF0C;&#x76F4;&#x5230;&#x88AB;&#x6355;&#x83B7;&#x4E3A;&#x6B62;&#x3002;&#x9519;&#x8BEF;&#x603B;&#x662F;&#x4F1A;&#x88AB;&#x4E0B;&#x4E00;&#x4E2A;catch&#x8BED;&#x53E5;&#x6355;&#x83B7;&#x3002;<br>  catch&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x6355;&#x83B7;&#x4E4B;&#x524D;&#x6240;&#x6709;then&#x6267;&#x884C;&#x4E2D;&#x7684;&#x9519;&#x8BEF;&#x3002;  </p>
+<h2 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all()"></a>Promise.all()</h2><p>  &#x6B64;&#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x5C06;&#x591A;&#x4E2A; Promise &#x5B9E;&#x4F8B;&#xFF0C;&#x5305;&#x88C5;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684; Promise &#x5B9E;&#x4F8B;&#x3002;  </p>
+<pre><code>const p1 = new Promise((resolve, reject) =&gt; {
+  resolve(&apos;hello&apos;);
+})
+  .then(result =&gt; result)
+  .catch(e =&gt; e);
+
+const p2 = new Promise((resolve, reject) =&gt; {
+  throw new Error(&apos;&#x62A5;&#x9519;&#x4E86;&apos;);
+})
+  .then(result =&gt; result)
+  .catch(e =&gt; e);
+
+Promise.all([p1, p2])
+  .then(result =&gt; console.log(result))
+  .catch(e =&gt; console.log(e));
+// [&quot;hello&quot;, Error: &#x62A5;&#x9519;&#x4E86;]
+</code></pre><p>  &#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;p1&#x4F1A;resolved&#xFF0C;p2&#x9996;&#x5148;&#x4F1A;rejected&#xFF0C;&#x4F46;&#x662F;p2&#x6709;&#x81EA;&#x5DF1;&#x7684;catch&#x65B9;&#x6CD5;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x65B0;&#x7684; Promise &#x5B9E;&#x4F8B;&#xFF0C;p2&#x6307;&#x5411;&#x7684;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;&#x3002;<br>  &#x8BE5;&#x5B9E;&#x4F8B;&#x6267;&#x884C;&#x5B8C;catch&#x65B9;&#x6CD5;&#x540E;&#xFF0C;&#x4E5F;&#x4F1A;&#x53D8;&#x6210;resolved&#xFF0C;&#x5BFC;&#x81F4;Promise.all()&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#x91CC;&#x9762;&#x7684;&#x4E24;&#x4E2A;&#x5B9E;&#x4F8B;&#x90FD;&#x4F1A;resolved&#xFF0C;&#x56E0;&#x6B64;&#x4F1A;&#x8C03;&#x7528;then&#x65B9;&#x6CD5;&#x6307;&#x5B9A;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;<br>  &#x800C;&#x4E0D;&#x4F1A;&#x8C03;&#x7528;catch&#x65B9;&#x6CD5;&#x6307;&#x5B9A;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;&#x5982;&#x679C;p2&#x6CA1;&#x6709;&#x81EA;&#x5DF1;&#x7684;catch&#x65B9;&#x6CD5;&#xFF0C;&#x5C31;&#x4F1A;&#x8C03;&#x7528;Promise.all()&#x7684;catch&#x65B9;&#x6CD5;&#x3002;  </p>
+<h2 id="Promise-prototype-finally"><a href="#Promise-prototype-finally" class="headerlink" title="Promise.prototype.finally()"></a>Promise.prototype.finally()</h2><p>finally&#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x4E0D;&#x7BA1; Promise &#x5BF9;&#x8C61;&#x6700;&#x540E;&#x72B6;&#x6001;&#x5982;&#x4F55;&#xFF0C;&#x90FD;&#x4F1A;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/03/22/&#x539F;&#x578B;&#x7EE7;&#x627F;-&#x7FFB;&#x8BD1;-vjeux-&#x6587;&#x7AE0;/" data-toggle="tooltip" data-placement="top" title="&#x539F;&#x578B;&#x7EE7;&#x627F;(&#x7FFB;&#x8BD1; vjeux &#x6587;&#x7AE0;)">&#x2190; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Promise&#x5F02;&#x6B65;&#x7F16;&#x7A0B;"><span class="toc-text">Promise&#x5F02;&#x6B65;&#x7F16;&#x7A0B;</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise&#x7684;&#x542B;&#x4E49;"><span class="toc-text">Promise&#x7684;&#x542B;&#x4E49;:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#&#x7279;&#x70B9;&#xFF1A;"><span class="toc-text">&#x7279;&#x70B9;&#xFF1A;</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#&#x57FA;&#x672C;&#x4F7F;&#x7528;&#xFF1A;"><span class="toc-text">&#x57FA;&#x672C;&#x4F7F;&#x7528;&#xFF1A;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-prototype-then"><span class="toc-text">Promise.prototype.then()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-prototype-catch"><span class="toc-text">Promise.prototype.catch()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-all"><span class="toc-text">Promise.all()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-prototype-finally"><span class="toc-text">Promise.prototype.finally()</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &#xA9; Zwe1 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+
+<img class="wechat-title-img" src="">
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script></body></html><!-- Main Content --><!--only post--><!-- Footer --><!-- Footer --><!--wechat title img-->

@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="en"><!-- Head tag --><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="&#x987B;&#x5F25;&#x7EB3;&#x82A5;&#x5B50;">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Zwe1" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        &#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF08;ES5 + ES6&#xFF09;&#xFF5C;undefined
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2018/03/22/&#x6570;&#x636E;&#x7C7B;&#x578B;/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- switch banner background-img -->
+    <script>
+    if (theme.switch_banner){ 
+        var number_of_banners = 6;
+        var randnum = Math.floor(Math.random() * number_of_banners + 1);
+        document.getElementById("container")[0].style.backgroundImage = "url(/css/images/banner" + randnum + ".jpg)";
+    } else { 
+        document.getElementById("container")[0].style.backgroundImage = "url(/css/images/banner.jpg)";
+    } 
+</script></head><body ontouchstart="" class="animated fadeIn"><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+<style>
+
+    header.intro-header {
+        background-image: url('./img/1.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+
+<!-- Navigation --><nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost="true" data-istags="false
+" data-ishome="false">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Zwe1
+                </span>
+                &apos;s Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+
+<img class="wechat-title-img" src="./img/1.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('./img/1.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF08;ES5 + ES6&#xFF09;</h1>
+                    
+                    <span class="meta">
+                         &#x4F5C;&#x8005; Zwe1
+                        <span>
+                          &#x65E5;&#x671F; 2018-03-22
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#Javascript" title="Javascript">Javascript</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            &#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF08;ES5 + ES6&#xFF09;
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>Javascript&#x662F;&#x4E00;&#x79CD;<strong>&#x52A8;&#x6001;</strong>&#x8BED;&#x8A00;&#xFF0C;&#x65E0;&#x9700;&#x63D0;&#x524D;&#x58F0;&#x660E;&#x53D8;&#x91CF;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x540C;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x4FDD;&#x5B58;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x9700;&#x8981;&#x6307;&#x660E;&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#x58F0;&#x660E;&#x65B9;&#x5F0F;&#xFF1A;  int a; float b; char C; (C&#x8BED;&#x8A00;)</p>
+<h2 id="&#x6570;&#x636E;&#x7C7B;&#x578B;"><a href="#&#x6570;&#x636E;&#x7C7B;&#x578B;" class="headerlink" title="&#x6570;&#x636E;&#x7C7B;&#x578B;"></a>&#x6570;&#x636E;&#x7C7B;&#x578B;</h2><p>Boolean, Null, Undefined, Number, String, Symbol(ES6) &#x548C; Object&#x3002;  </p>
+<p>&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x90FD;&#x662F;&#x4E0D;&#x53EF;&#x4FEE;&#x6539;&#x7684;&#xFF0C;&#x5BF9;&#x53D8;&#x91CF;&#x7684;&#x91CD;&#x8D4B;&#x503C;&#x5E76;&#x975E;&#x64CD;&#x4F5C;&#x539F;&#x6765;&#x7684;&#x503C;&#x3002;  </p>
+<h3 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h3><p>Symbol&#x8868;&#x793A;&#x72EC;&#x4E00;&#x65E0;&#x4E8C;&#x7684;&#x503C;&#xFF0C;&#x662F;Javascript&#x8BED;&#x8A00;&#x7684;<strong>&#x7B2C;&#x4E03;&#x79CD;</strong>&#x6570;&#x636E;&#x7C7B;&#x578B;&#x3002;<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">let s = Symbol(&apos;symbol&apos;);</span><br><span class="line">typeof s;</span><br><span class="line">// &quot;Symbol&quot;</span><br><span class="line">s.toString();</span><br><span class="line">// &quot;Symbol(&apos;symbol&apos;)&quot;</span><br><span class="line">```  </span><br><span class="line">Symbole&#x53EF;&#x4EE5;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x8868;&#x793A;&#x5BF9;Symbole&#x5B9E;&#x4F8B;&#x7684;&#x533A;&#x5206;&#x3002;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## ES6 Set&#x548C; Map   </span><br><span class="line">Set&#x4E3A;&#x7C7B;&#x6570;&#x7EC4;&#x7ED3;&#x6784;&#xFF0C;&#x662F;&#x4E00;&#x79CD;&#x975E;&#x91CD;&#x590D;&#x7C7B;&#x6570;&#x7EC4;&#x3002;</span><br><span class="line">Map&#x4E3A;&#x952E;&#x5F00;&#x653E;&#x7684;&#x5BF9;&#x8C61;&#x7ED3;&#x6784;&#x3002;</span><br><span class="line">**typeof&#x5224;&#x65AD;Set&#x548C;Map&#x4E3A;Object&#x3002;**</span><br><span class="line"></span><br><span class="line">### Set  </span><br><span class="line">Set&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7C7B;&#x4F3C;&#x4E8E;&#x6570;&#x7EC4;&#xFF0C;&#x4F46;&#x6210;&#x5458;&#x7684;&#x503C;&#x662F;**&#x4E0D;&#x91CD;&#x590D;**&#x7684;&#x552F;&#x4E00;&#x503C;&#x3002;</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>const set = new Set([1, 2, 3, 4, 4]);<br>[&#x2026;set]<br>// [1, 2, 3, 4]<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x5728;&#x4E3A;set&#x8D4B;&#x503C;&#x65F6;&#xFF0C;&#x82E5;&#x76F4;&#x63A5;&#x4F20;&#x5165;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;set&#x4F1A;&#x8FC7;&#x6EE4;&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x91CD;&#x590D;&#x6027;&#xFF0C;&#x91CD;&#x590D;&#x7684;NaN&#x4E5F;&#x4F1A;&#x88AB;&#x8FC7;&#x6EE4;&#x6389;&#x3002;</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>let arr = [3, 5, 2, 2, 5, 5];<br>let unique = [&#x2026;new Set(arr)];<br>// [3, 5, 2]<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x5229;&#x7528;Set&#x7684;&#x4E0D;&#x91CD;&#x590D;&#x7279;&#x6027;&#x5B9E;&#x73B0;**&#x6570;&#x7EC4;&#x53BB;&#x91CD;**&#x3002;  </span><br><span class="line"></span><br><span class="line">### WeakSet</span><br><span class="line">&#x4E0E;Set&#x7684;&#x4E24;&#x4E2A;&#x533A;&#x522B;</span><br><span class="line">1. WeakSet&#x6210;&#x5458;&#x53EA;&#x80FD;&#x662F;&#x5BF9;&#x8C61;&#x3002;</span><br><span class="line">2. WeakSet&#x662F;&#x5F31;&#x5F15;&#x7528;&#xFF0C;&#x4F1A;&#x81EA;&#x52A8;&#x56DE;&#x6536;&#x3002;  </span><br><span class="line"></span><br><span class="line">### Map  </span><br><span class="line">&#x7C7B;&#x4F3C;&#x4E8E;&#x5BF9;&#x8C61;&#xFF0C;&#x5141;&#x8BB8;&#x201C;&#x952E;&#x201D;&#x4E3A;**&#x5404;&#x79CD;&#x7C7B;&#x578B;**&#x7684;Hash&#x7ED3;&#x6784;&#x6570;&#x636E;&#x3002;</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>const map = new Map();</p>
+<p>const k1 = [&#x2018;a&#x2019;];<br>const k2 = [&#x2018;a&#x2019;];</p>
+<p>map<br>.set(k1, 111)<br>.set(k2, 222);</p>
+<p>map.get(k1) // 111<br>map.get(k2) // 222<br><code>`</code><br>&#x53D8;&#x91CF;k1&#x548C;k2&#x7684;&#x503C;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x4F46;&#x5728;Map&#x7ED3;&#x6784;&#x4E2D;&#x88AB;&#x89C6;&#x4E3A;&#x4E24;&#x4E2A;&#x952E;&#x3002;&#x53EF;&#x77E5;&#xFF0C;Map&#x7684;&#x952E;&#x662F;&#x548C;&#x5185;&#x5B58;&#x5730;&#x5740;&#x7ED1;&#x5B9A;&#x7684;&#xFF0C;&#x53EA;&#x8981;&#x5185;&#x5B58;&#x5730;&#x5740;&#x4E0D;&#x4E00;&#x6837;&#xFF0C;&#x5C31;&#x89C6;&#x4E3A;&#x4E24;&#x4E2A;&#x952E;&#x3002;  </p>
+<h3 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h3><p>&#x4E0E;Map&#x7684;&#x533A;&#x522B;  </p>
+<ol>
+<li>&#x53EA;&#x63A5;&#x53D7;&#x5BF9;&#x8C61;&#x4F5C;&#x4E3A;&#x952E;&#x540D;&#xFF08;null&#x9664;&#x5916;&#xFF09;&#x3002;  </li>
+<li>WeakMap&#x952E;&#x6240;&#x6307;&#x5411;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x4E0D;&#x8BA1;&#x5165;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;&#x3002;<br><strong>&#x5E94;&#x7528;</strong>&#xFF1A;&#x4E3A;&#x5BF9;&#x8C61;&#x6DFB;&#x52A0;&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x8BF4;&#x660E;&#xFF0C;&#x4E0D;&#x9020;&#x6210;&#x5F15;&#x7528;&#x3002;</li>
+</ol>
+<h2 id="&#x5E38;&#x7528;API"><a href="#&#x5E38;&#x7528;API" class="headerlink" title="&#x5E38;&#x7528;API"></a>&#x5E38;&#x7528;API</h2><h3 id="&#x5B57;&#x7B26;&#x4E32;"><a href="#&#x5B57;&#x7B26;&#x4E32;" class="headerlink" title="&#x5B57;&#x7B26;&#x4E32;"></a>&#x5B57;&#x7B26;&#x4E32;</h3><p>String.substr(starts, ends);  &#x5B57;&#x7B26;&#x4E32;&#x622A;&#x53D6;<br>String.slice(starts, ends);  &#x5B57;&#x7B26;&#x4E32;&#x622A;&#x53D6;<br>String.split(spliter);  &#x5C06;&#x5B57;&#x7B26;&#x4E32;&#x4EE5;&#x5339;&#x914D;&#x7684;&#x6A21;&#x5F0F;&#x5206;&#x5272;&#x4E3A;&#x6570;&#x7EC4;&#x3002;<br>String.indexOf(param);  &#x67E5;&#x627E;&#x5339;&#x914D;&#x503C;&#x7684;&#x8D77;&#x59CB;&#x5E8F;&#x5217;&#x53F7;    </p>
+<h3 id="&#x6570;&#x7EC4;"><a href="#&#x6570;&#x7EC4;" class="headerlink" title="&#x6570;&#x7EC4;"></a>&#x6570;&#x7EC4;</h3><p>Arr.slice(starts, ends);   &#x6570;&#x7EC4;&#x622A;&#x53D6;&#xFF0C;&#x8FD4;&#x56DE;&#x65B0;&#x6570;&#x7EC4;<br>Arr.splice(starts, ends, new1, new2, &#x2026;);  <strong>&#x53EF;&#x4EE5;&#x4FEE;&#x6539;&#x539F;&#x59CB;&#x6570;&#x7EC4;</strong>&#xFF0C;&#x4ECE;&#x6307;&#x5B9A;&#x4F4D;&#x7F6E;&#x5F00;&#x59CB;&#x5220;&#x9664;&#x82E5;&#x5E72;&#x5143;&#x7D20;&#xFF0C;&#x4ECE;&#x8BE5;&#x4F4D;&#x7F6E;&#x63D2;&#x5165;&#x82E5;&#x5E72;&#x5143;&#x7D20;<br>Arr.concat(arr);   &#x6570;&#x7EC4;&#x8FDE;&#x63A5;&#xFF0C;&#x8FD4;&#x56DE;&#x65B0;&#x6570;&#x7EC4;<br>Arr.join(joiner);  &#x4F7F;&#x7528;&#x8FDE;&#x63A5;&#x7B26;&#x5C06;&#x6570;&#x7EC4;&#x8FDE;&#x63A5;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;<br>Arr.indexOf(param);  &#x67E5;&#x627E;&#x5339;&#x914D;&#x503C;&#x7684;&#x4E0B;&#x6807;<br>Arr.push();  &#x5C3E;&#x90E8;&#x5165;&#x6808;<br>Arr.pop();  &#x5C3E;&#x90E8;&#x51FA;&#x6808;<br>Arr.unshift();  &#x5934;&#x90E8;&#x5165;&#x6808;<br>Arr.shift();  &#x5934;&#x90E8;&#x51FA;&#x6808;<br>Arr.sort(func);  &#x6570;&#x7EC4;&#x6392;&#x5E8F;&#xFF0C;&#x53C2;&#x6570;&#x53EF;&#x9009;&#xFF0C;&#x9ED8;&#x8BA4;&#x5347;&#x5E8F;<br>Arr.reverse();  &#x6570;&#x7EC4;&#x53CD;&#x8F6C;<br>Arr.from(set);  &#x5C06;Set&#x7ED3;&#x6784;&#x8F6C;&#x4E3A;&#x6570;&#x7EC4;&#x3002;</p>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p>S.add(value);  &#x6DFB;&#x52A0;&#x67D0;&#x4E2A;&#x503C;<br>S.delete(value);  &#x5220;&#x9664;&#x67D0;&#x4E2A;&#x503C;<br>S.has(value);  &#x662F;&#x5426;&#x542B;&#x6709;&#x67D0;&#x503C;<br>S.clear();   &#x6E05;&#x9664;&#x6240;&#x6709;&#x503C;</p>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p>m.size;  &#x8FD4;&#x56DE;Map&#x7ED3;&#x6784;&#x7684;&#x6210;&#x5458;&#x603B;&#x6570;<br>m.set(key, value);  &#x8BBE;&#x7F6E;&#x952E;&#x540D;&#x4E3A;key&#xFF0C;&#x952E;&#x503C;&#x4E3A;value<br>m.get(key);  &#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x952E;&#x4E3A;key&#x7684;&#x503C;&#x3002;</p>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/03/28/Javascript&#x4E2D;&#x7684;&#x9B54;&#x9B3C;/" data-toggle="tooltip" data-placement="top" title="Javascript&#x4E2D;&#x7684;&#x9B54;&#x9B3C;">&#x2190; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/03/22/&#x5BF9;&#x8C61;-&#x539F;&#x578B;-&#x7EE7;&#x627F;/" data-toggle="tooltip" data-placement="top" title="&#x5BF9;&#x8C61;-&#x539F;&#x578B;-&#x7EE7;&#x627F;">Next Post &#x2192;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#&#x6570;&#x636E;&#x7C7B;&#x578B;"><span class="toc-text">&#x6570;&#x636E;&#x7C7B;&#x578B;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Symbol"><span class="toc-text">Symbol</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WeakMap"><span class="toc-text">WeakMap</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#&#x5E38;&#x7528;API"><span class="toc-text">&#x5E38;&#x7528;API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#&#x5B57;&#x7B26;&#x4E32;"><span class="toc-text">&#x5B57;&#x7B26;&#x4E32;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#&#x6570;&#x7EC4;"><span class="toc-text">&#x6570;&#x7EC4;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Set"><span class="toc-text">Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Map"><span class="toc-text">Map</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &#xA9; Zwe1 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+
+<img class="wechat-title-img" src="">
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script></body></html><!-- Main Content --><!--only post--><!-- Footer --><!-- Footer --><!--wechat title img-->
