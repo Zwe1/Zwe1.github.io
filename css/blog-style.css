@@ -46,7 +46,6 @@ hr{
 .sidebar-container .short-about img {
     width: 100%;
     display: block;
-    border-radius: 50%;
     margin-bottom: 20px;
     box-shadow: 0 0 2px black;
 }
@@ -80,8 +79,8 @@ h5,
 h6{
     font-weight: 400;
 }
-h2{font-size: 22px}
-h3{font-size: 20px}
+h2{font-size: 22px; color: #003a8c}
+h3{font-size: 20px; color: #096dd9}
 h4{font-size: 18px}
 h5{font-size: 16px}
 h6{font-size: 15px}
