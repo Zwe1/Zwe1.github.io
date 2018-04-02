@@ -154,6 +154,18 @@ pre,
     -webkit-overflow-scrolling: touch;
 }
 
+thead {
+    background: #f3f3f3;
+}
+
+tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+th {
+    border: 1px solid #ddd;
+}
+
 pre code {
     display: block;
     width: auto;
