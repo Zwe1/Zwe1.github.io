@@ -71,6 +71,7 @@ figure.highlight .gutter {
   padding-right: 15px;
   border-right: 1px solid color-border;
   text-align: right;
+  display: none;
 }
 figure.highlight .code {
   border-left: 1px solid #fff;
