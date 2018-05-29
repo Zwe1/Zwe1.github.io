@@ -1,0 +1,368 @@
+<!DOCTYPE html><html lang="en"><!-- Head tag --><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="&#x987B;&#x5F25;&#x7EB3;&#x82A5;&#x5B50;">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Zwe1" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Understanding React `setState` &#x7FFB;&#x8BD1;&#xFF5C;undefined
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2018/05/29/Understanding-React-setState-&#x7FFB;&#x8BD1;/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+</head>
+<body ontouchstart="" class="animated fadeIn"><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+<style>
+
+    header.intro-header {
+        background-image: url('https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/01/ChMkJlgq0z-IC78PAA1UbwykJUgAAXxIwMAwQcADVSH340.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+
+<!-- Navigation --><nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost="true" data-istags="false
+" data-ishome="false">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Zwe1
+                </span>
+                &apos;s Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+
+<img class="wechat-title-img" src="https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/01/ChMkJlgq0z-IC78PAA1UbwykJUgAAXxIwMAwQcADVSH340.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/0D/01/ChMkJlgq0z-IC78PAA1UbwykJUgAAXxIwMAwQcADVSH340.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Understanding React `setState` &#x7FFB;&#x8BD1;</h1>
+                    
+                    <span class="meta">
+                         &#x4F5C;&#x8005; Zwe1
+                        <span>
+                          &#x65E5;&#x671F; 2018-05-29
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Understanding React `setState` &#x7FFB;&#x8BD1;
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h1 id="&#x4E86;&#x89E3;React&#x4E2D;&#x7684;setState"><a href="#&#x4E86;&#x89E3;React&#x4E2D;&#x7684;setState" class="headerlink" title="&#x4E86;&#x89E3;React&#x4E2D;&#x7684;setState"></a>&#x4E86;&#x89E3;React&#x4E2D;&#x7684;setState</h1><p>reacr&#x7EC4;&#x4EF6;&#x901A;&#x5E38;&#x90FD;&#x5305;&#x542B;&#x72B6;&#x6001;&#x3002;&#x72B6;&#x6001;&#x53EF;&#x4EE5;&#x662F;&#x4EFB;&#x4F55;&#x4E1C;&#x897F;&#xFF0C;&#x60F3;&#x8C61;&#x4E00;&#x4E0B;&#x4F7F;&#x7528;&#x573A;&#x666F;&#xFF1A;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x662F;&#x5426;&#x8FDB;&#x884C;&#x4E86;&#x767B;&#x9646;&#xFF0C;&#x6839;&#x636E;&#x8D26;&#x6237;&#x7684;&#x6FC0;&#x6D3B;&#x72B6;&#x6001;&#x6765;&#x5C55;&#x793A;&#x51C6;&#x786E;&#x7684;&#x7528;&#x6237;&#x540D;&#x3002;&#x6216;&#x8005;<br>&#x662F;&#x4E00;&#x7CFB;&#x5217;&#x535A;&#x5BA2;&#x6587;&#x7AE0;&#x3002;&#x6216;&#x8005;&#x4E00;&#x4E2A;&#x6A21;&#x6001;&#x6846;&#x662F;&#x5426;&#x6253;&#x5F00;&#x4EE5;&#x53CA;&#x5176;&#x4E2D;&#x7684;&#x54EA;&#x4E2A;&#x6807;&#x7B7E;&#x662F;&#x6FC0;&#x6D3B;&#x72B6;&#x6001;&#x7684;&#x3002;&#x5305;&#x542B;&#x72B6;&#x6001;&#x7684;React&#x7EC4;&#x4EF6;&#x5176;&#x6E32;&#x67D3;&#x4E5F;&#x4F9D;&#x8D56;&#x4E8E;&#x8FD9;&#x4E9B;&#x72B6;&#x6001;&#x3002;&#x5F53;&#x7EC4;&#x4EF6;&#x7684;&#x72B6;&#x6001;&#x53D1;&#x751F;&#x6539;&#x53D8;&#xFF0C;&#x7EC4;&#x4EF6;&#x4E5F;&#x4F1A;<br>&#x53D1;&#x751F;&#x6539;&#x53D8;&#x3002;</p>
+<h2 id="setState&#x7684;&#x5DE5;&#x4F5C;&#x673A;&#x5236;"><a href="#setState&#x7684;&#x5DE5;&#x4F5C;&#x673A;&#x5236;" class="headerlink" title="setState&#x7684;&#x5DE5;&#x4F5C;&#x673A;&#x5236;"></a>setState&#x7684;&#x5DE5;&#x4F5C;&#x673A;&#x5236;</h2><p><code>setState()</code>&#x662F;&#x5728;&#x521D;&#x59CB;&#x5316;&#x72B6;&#x6001;&#x4E4B;&#x540E;&#x552F;&#x4E00;&#x5408;&#x6CD5;&#x7684;&#x66F4;&#x65B0;&#x72B6;&#x6001;&#x7684;&#x65B9;&#x5F0F;&#x3002;&#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x6709;&#x4E00;&#x4E2A;&#x641C;&#x7D22;&#x7EC4;&#x4EF6;&#xFF0C;&#x5E76;&#x4E14;&#x60F3;&#x5C55;&#x793A;&#x7528;&#x6237;&#x63D0;&#x4EA4;&#x7684;&#x641C;&#x7D22;&#x5185;&#x5BB9;&#x3002;<br>&#x5982;&#x6B64;&#x8BBE;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, { Component } <span class="keyword">from</span> <span class="string">&apos;react&apos;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Search</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>{</span><br><span class="line">  <span class="keyword">constructor</span>(props) {</span><br><span class="line">    <span class="keyword">super</span>(props)</span><br><span class="line"></span><br><span class="line">    state = {</span><br><span class="line">      searchTerm: <span class="string">&apos;&apos;</span></span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6211;&#x4EEC;&#x7528;&#x4E00;&#x4E2A;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#x6765;&#x521D;&#x59CB;&#x5316;&#x72B6;&#x6001;,&#x5E76;&#x4E14;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x8C03;&#x7528;<code>setState()</code>&#x6765;&#x66F4;&#x65B0;&#x72B6;&#x6001;<code>searchTerm</code>&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setState({ <span class="attr">searchTerm</span>: event.target.value })</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6B64;&#x5904;&#xFF0C;&#x6211;&#x4EEC;&#x5411;<code>setState()</code>&#x4F20;&#x9012;&#x4E86;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x3002;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x5305;&#x542B;&#x4E86;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x66F4;&#x65B0;&#x7684;&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x72B6;&#x6001;&#xFF0C;&#x6B64;&#x5904;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;<code>searchItem</code>&#x7684;&#x503C;&#x3002;React&#x83B7;&#x53D6;&#x8FD9;&#x4E2A;&#x503C;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x5B83;&#x5408;&#x5E76;&#x5230;&#x9700;&#x8981;&#x5B83;&#x7684;&#x5BF9;&#x8C61;&#x4E2D;&#x3002;&#x8FD9;&#x6709;&#x70B9;&#x50CF;<code>Search</code>&#x7EC4;&#x4EF6;&#x5728;&#x5411;<code>searchTerm</code>&#x72B6;&#x6001;&#x7D22;&#x53D6;&#x5B83;&#x6240;&#x9700;&#x8981;&#x7684;&#x503C;&#xFF0C;<code>setState()</code>&#x7ED9;&#x4E86;&#x5B83;&#x8FD9;&#x4E2A;&#x7B54;&#x6848;&#x3002;</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/19/16377f13e12a04ee?w=645&amp;h=1080&amp;f=jpeg&amp;s=26173" alt="setState"> </p>
+<p>&#x8FD9;&#x5F00;&#x542F;&#x4E86;&#x4E00;&#x4E2A;React&#x4E2D;&#x53EB;&#x505A;<code>reconciliation</code>&#xFF08;&#x8C03;&#x8C10;&#xFF09;&#x7684;&#x8FC7;&#x7A0B;&#x3002;&#x8C03;&#x8C10;&#x8FC7;&#x7A0B;&#x662F;React&#x66F4;&#x65B0;DOM&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x6839;&#x636E;&#x72B6;&#x6001;&#x7684;&#x6539;&#x53D8;&#x6765;&#x6539;&#x53D8;&#x7EC4;&#x4EF6;&#x3002;&#x5F53;<code>setState()</code>&#x89E6;&#x53D1;&#x65F6;&#xFF0C;React&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x7EC4;&#x4EF6;&#x4E2D;&#x53EF;&#x54CD;&#x5E94;&#x5143;&#x7D20;&#xFF08;&#x6839;&#x636E;&#x66F4;&#x65B0;&#x540E;&#x7684;&#x72B6;&#x6001;&#xFF09;&#x7684;&#x65B0;&#x6811;&#x3002;&#x901A;&#x8FC7;&#x8FD9;&#x8BFE;&#x6811;&#x4E0E;&#x524D;&#x6811;&#x7684;&#x6BD4;&#x8F83;&#x6765;&#x786E;&#x5B9A;<code>Search</code>&#x7EC4;&#x4EF6;&#x7684;UI&#x5982;&#x4F55;&#x6839;&#x636E;&#x72B6;&#x6001;&#x7684;&#x6539;&#x53D8;&#x800C;&#x54CD;&#x5E94;&#x5F0F;&#x7684;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x3002;React&#x77E5;&#x9053;&#x8981;&#x5B9E;&#x73B0;&#x54EA;&#x4E9B;&#x66F4;&#x6539;&#xFF0C;&#x5E76;&#x4E14;&#x53EA;&#x4F1A;&#x5728;&#x5FC5;&#x8981;&#x65F6;&#x66F4;&#x65B0;DOM&#x7684;&#x67D0;&#x4E9B;&#x90E8;&#x5206;&#x3002;&#x8FD9;&#x5C31;&#x662F;React&#x5F88;&#x5FEB;&#x7684;&#x539F;&#x56E0;&#x3002;  </p>
+<p>&#x4E0A;&#x9762;&#x542C;&#x8D77;&#x6765;&#x6709;&#x4E9B;&#x591A;&#xFF0C;&#x6240;&#x4EE5;&#x603B;&#x7ED3;&#x6210;&#x4E00;&#x4E9B;&#x8FD9;&#x4E9B;&#xFF1A;  </p>
+<ul>
+<li>&#x6211;&#x4EEC;&#x6709;&#x4E00;&#x4E2A;&#x5C55;&#x793A;&#x641C;&#x7D22;&#x9879;&#x7684;&#x641C;&#x7D22;&#x7EC4;&#x4EF6;&#x3002;</li>
+<li>&#x641C;&#x7D22;&#x9879;&#x76EE;&#x524D;&#x4E3A;&#x63A7;&#x3002;</li>
+<li>&#x7528;&#x6237;&#x63D0;&#x4EA4;&#x4E86;&#x641C;&#x7D22;&#x5185;&#x5BB9;&#x3002;</li>
+<li>&#x641C;&#x7D22;&#x503C;&#x88AB;&#x6355;&#x83B7;&#x7136;&#x540E;&#x88AB;<code>setState()</code>&#x4FDD;&#x5B58;&#x5230;&#x503C;&#x4E2D;&#x3002;</li>
+<li>&#x8C03;&#x8C10;&#x8FDB;&#x884C;&#x7136;&#x540E;React&#x5BDF;&#x89C9;&#x5230;&#x4E86;&#x503C;&#x7684;&#x53D8;&#x5316;&#x3002;</li>
+<li>React&#x6307;&#x793A;&#x641C;&#x7D22;&#x7EC4;&#x4EF6;&#x66F4;&#x65B0;&#x503C;&#x7136;&#x540E;&#x5C06;&#x641C;&#x7D22;&#x9879;&#x8FDB;&#x884C;&#x5408;&#x5E76;&#x3002; </li>
+</ul>
+<p>&#x8C03;&#x8C10;&#x8FC7;&#x7A0B;&#x6CA1;&#x5FC5;&#x8981;&#x6539;&#x53D8;&#x6574;&#x68F5;&#x6811;&#xFF0C;&#x9664;&#x975E;&#x4E00;&#x79CD;&#x60C5;&#x51B5;&#x53D1;&#x751F;&#xFF0C;&#x50CF;&#x4E0B;&#x9762;&#x8FD9;&#x79CD;&#x6811;&#x7684;&#x6839;&#x8282;&#x70B9;&#x53D1;&#x751F;&#x4E86;&#x53D8;&#x5316;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// old</span></span><br><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;Search /&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ new</span></span><br><span class="line"><span class="regexp">&lt;span&gt;</span></span><br><span class="line"><span class="regexp">  &lt;Search /</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/span&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6240;&#x6709;&#x7684;<code>&lt;div&gt;</code>&#x6807;&#x7B7E;&#x53D8;&#x6210;&#x4E86;<code>&lt;span&gt;</code>&#x6807;&#x7B7E;&#x5BFC;&#x81F4;&#x6574;&#x68F5;&#x7EC4;&#x4EF6;&#x6811;&#x88AB;&#x5237;&#x65B0;&#x3002;  </p>
+<p>&#x4E00;&#x6761;&#x7ECF;&#x9A8C;&#x6CD5;&#x5219;&#xFF1A;&#x6C38;&#x8FDC;&#x4E0D;&#x8981;&#x76F4;&#x63A5;&#x6539;&#x53D8;state&#x3002;&#x4F7F;&#x7528;<code>setState()</code>&#x6765;&#x6539;&#x53D8;&#x72B6;&#x6001;&#x3002;&#x50CF;&#x4E0B;&#x9762;&#x7247;&#x6BB5;&#x8FD9;&#x6837;&#x76F4;&#x63A5;&#x4FEE;&#x6539;state&#x662F;&#x65E0;&#x6CD5;&#x8BA9;&#x7EC4;&#x4EF6;&#x91CD;&#x65B0;&#x6E32;&#x67D3;&#x7684;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// do not do this</span></span><br><span class="line"><span class="keyword">this</span>.state = {</span><br><span class="line">  searchTerm: event.target.value</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="&#x5411;&#x2019;setState-&#x2019;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x51FD;&#x6570;"><a href="#&#x5411;&#x2019;setState-&#x2019;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x51FD;&#x6570;" class="headerlink" title="&#x5411;&#x2019;setState()&#x2019;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x51FD;&#x6570;"></a>&#x5411;&#x2019;setState()&#x2019;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x51FD;&#x6570;</h2><p>&#x4E3A;&#x4E86;&#x8FDB;&#x4E00;&#x6B65;&#x7684;&#x6F14;&#x793A;&#x8FD9;&#x4E2A;&#x60F3;&#x6CD5;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x8BA1;&#x6570;&#x5668;&#xFF0C;&#x901A;&#x8FC7;&#x70B9;&#x51FB;&#x6765;&#x589E;&#x52A0;&#x51CF;&#x5C11;&#x6570;&#x5B57;&#x3002;  </p>
+<p>&#x8BA9;&#x6211;&#x4EEC;&#x6765;&#x6CE8;&#x518C;&#x7EC4;&#x4EF6;&#x7136;&#x540E;&#x4E3A;UI&#x5B9A;&#x4E49;&#x6807;&#x8BB0;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>{</span><br><span class="line"></span><br><span class="line">state = { <span class="attr">count</span>: <span class="number">0</span> }</span><br><span class="line"></span><br><span class="line">handleIncrement = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="keyword">this</span>.setState({ <span class="attr">count</span>: <span class="keyword">this</span>.state.count + <span class="number">1</span> })</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">handleDecrement = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="keyword">this</span>.setState({ <span class="attr">count</span>: <span class="keyword">this</span>.state.count - <span class="number">1</span> })</span><br><span class="line">}</span><br><span class="line">  render() {</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          {<span class="keyword">this</span>.state.count}</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;button onClick={this.handleIncrement}&gt;Increment by 1&lt;/</span>button&gt;</span><br><span class="line">        &lt;button onClick={<span class="keyword">this</span>.handleDecrement}&gt;Decrement by <span class="number">1</span>&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    )</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD9;&#x91CC;&#xFF0C;&#x8BA1;&#x6570;&#x5668;&#x53EA;&#x662F;&#x7B80;&#x5355;&#x7684;&#x5728;&#x6BCF;&#x6B21;&#x70B9;&#x51FB;&#x540E;&#x589E;&#x52A0;&#x6216;&#x8005;&#x51CF;&#x5C11;1&#x3002;  </p>
+<p>&#x5047;&#x5982;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x6BCF;&#x6B21;&#x589E;&#x51CF;3&#x5462;&#xFF1F;&#x6211;&#x4EEC;&#x6216;&#x8BB8;&#x4F1A;&#x50CF;&#x4E0B;&#x9762;&#x8FD9;&#x6837;&#x5C1D;&#x8BD5;&#x5728;<code>handleIncrement</code>&#x548C;<code>handleDecrement</code>&#x8C03;&#x7528;&#x4E09;&#x6B21;<code>setState()</code>:</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">handleIncrement = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="keyword">this</span>.setState({ <span class="attr">count</span>: <span class="keyword">this</span>.state.count + <span class="number">1</span> })</span><br><span class="line">  <span class="keyword">this</span>.setState({ <span class="attr">count</span>: <span class="keyword">this</span>.state.count + <span class="number">1</span> })</span><br><span class="line">  <span class="keyword">this</span>.setState({ <span class="attr">count</span>: <span class="keyword">this</span>.state.count + <span class="number">1</span> })</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">handleDecrement = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="keyword">this</span>.setState({ <span class="attr">count</span>: <span class="keyword">this</span>.state.count - <span class="number">1</span> })</span><br><span class="line">  <span class="keyword">this</span>.setState({ <span class="attr">count</span>: <span class="keyword">this</span>.state.count - <span class="number">1</span> })</span><br><span class="line">  <span class="keyword">this</span>.setState({ <span class="attr">count</span>: <span class="keyword">this</span>.state.count - <span class="number">1</span> })</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5982;&#x679C;&#x4F60;&#x81EA;&#x5DF1;&#x5728;&#x5BB6;&#x91CC;&#x7F16;&#x7A0B;&#xFF0C;&#x4F60;&#x53EF;&#x80FD;&#x60CA;&#x8BB6;&#x7684;&#x53D1;&#x73B0;&#x5B83;&#x5E76;&#x6CA1;&#x6709;&#x6548;&#x679C;&#x3002;</p>
+<p><strong>&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x7247;&#x6BB5;&#x76F8;&#x5F53;&#x4E8E;&#xFF1A;</strong>  </p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Object.assign(  </span><br><span class="line">  {},</span><br><span class="line">  { count: this.state.count + 1 },</span><br><span class="line">  { count: this.state.count + 1 },</span><br><span class="line">  { count: this.state.count + 1 },</span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
+<p><code>Object.assign()</code>&#x7528;&#x4E8E;&#x5C06;&#x6570;&#x636E;&#x4ECE;&#x6E90;&#x5BF9;&#x8C61;&#x62F7;&#x8D1D;&#x5230;&#x76EE;&#x6807;&#x5BF9;&#x8C61;&#x3002;&#x5982;&#x679C;&#x62F7;&#x8D1D;&#x7684;&#x6E90;&#x5BF9;&#x8C61;&#x6709;&#x76F8;&#x540C;&#x7684;&#x952E;&#xFF0C;&#x50CF;&#x4E0A;&#x4F8B;&#x8FD9;&#x6837;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x503C;&#x4F1A;&#x8986;&#x76D6;&#x524D;&#x9762;&#x7684;&#x503C;&#x3002;&#x8FD9;&#x91CC;&#x6709;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;<code>Object.assign()</code>&#x6848;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> count = <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> object = <span class="built_in">Object</span>.assign({}, </span><br><span class="line">  {<span class="attr">count</span>: count + <span class="number">1</span>}, </span><br><span class="line">  {<span class="attr">count</span>: count + <span class="number">2</span>}, </span><br><span class="line">  {<span class="attr">count</span>: count + <span class="number">3</span>}</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(object);</span><br><span class="line"><span class="comment">// output: Object { count: 6 }</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6240;&#x4EE5;&#x8C03;&#x7528;&#x4E0D;&#x662F;&#x6267;&#x884C;&#x4E86;&#x4E09;&#x6B21;&#xFF0C;&#x800C;&#x662F;&#x4E00;&#x6B21;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x7ED9;<code>setState()</code>&#x6765;&#x4FEE;&#x590D;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;&#x6B63;&#x5982;&#x4F60;&#x4F20;&#x9012;&#x7ED9;<code>setState()</code>&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x540C;&#x6837;&#x7684;&#x4E5F;&#x53EF;&#x4EE5;&#x4F20;&#x9012;&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x662F;&#x89E3;&#x51B3;&#x4E0A;&#x8FF0;&#x60C5;&#x51B5;&#x7684;&#x529E;&#x6CD5;&#x3002;  </p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x5199;<code>handleIncrement</code>&#x51FD;&#x6570;&#xFF1A;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">handleIncrement = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState</span>) =&gt;</span> ({ <span class="attr">count</span>: prevState.count + <span class="number">1</span> }))</span><br><span class="line">  <span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState</span>) =&gt;</span> ({ <span class="attr">count</span>: prevState.count + <span class="number">1</span> }))</span><br><span class="line">  <span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState</span>) =&gt;</span> ({ <span class="attr">count</span>: prevState.count + <span class="number">1</span> }))</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E00;&#x6B21;&#x70B9;&#x51FB;&#x6765;&#x589E;&#x52A0;&#x6570;&#x91CF;&#x4E09;&#x6B21;&#x4E86;&#x3002;  </p>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x6848;&#x4F8B;&#x4E2D;&#xFF0C;React&#x4E0D;&#x4F1A;&#x5BF9;&#x5176;&#x8FDB;&#x884C;&#x5408;&#x5E76;&#xFF0C;&#x800C;&#x662F;&#x6839;&#x636E;&#x51FD;&#x6570;&#x7684;&#x987A;&#x5E8F;&#x6267;&#x884C;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x51FD;&#x6570;&#x5168;&#x90E8;&#x6267;&#x884C;&#x5B8C;&#x4E4B;&#x540E;&#x66F4;&#x65B0;&#x72B6;&#x6001;&#x3002;&#x8FD9;&#x4F1A;&#x5C06;&#x8BA1;&#x6570;&#x66F4;&#x65B0;&#x5230;3&#x800C;&#x4E0D;&#x662F;1.</p>
+<h2 id="&#x4F7F;&#x7528;&#x66F4;&#x65B0;&#x5668;&#x8BBF;&#x95EE;&#x4E4B;&#x524D;&#x7684;&#x72B6;&#x6001;"><a href="#&#x4F7F;&#x7528;&#x66F4;&#x65B0;&#x5668;&#x8BBF;&#x95EE;&#x4E4B;&#x524D;&#x7684;&#x72B6;&#x6001;" class="headerlink" title="&#x4F7F;&#x7528;&#x66F4;&#x65B0;&#x5668;&#x8BBF;&#x95EE;&#x4E4B;&#x524D;&#x7684;&#x72B6;&#x6001;"></a>&#x4F7F;&#x7528;&#x66F4;&#x65B0;&#x5668;&#x8BBF;&#x95EE;&#x4E4B;&#x524D;&#x7684;&#x72B6;&#x6001;</h2><p>&#x5F53;&#x6211;&#x4EEC;&#x6784;&#x5EFA;React&#x5E94;&#x7528;&#x65F6;&#xFF0C;&#x7ECF;&#x5E38;&#x4F1A;&#x9047;&#x5230;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x4E4B;&#x524D;&#x7684;&#x72B6;&#x6001;&#x6765;&#x5DF1;&#x7B97;&#x73B0;&#x5728;&#x7684;&#x72B6;&#x6001;&#x3002;&#x6211;&#x4EEC;&#x5E76;&#x4E0D;&#x80FD;&#x591F;&#x5728;&#x603B;&#x662F;&#x8C03;&#x7528;<code>setState()</code>&#x540E;&#xFF0C;&#x901A;&#x8FC7;<code>this.state</code>&#x62FF;&#x5230;&#x51C6;&#x786E;&#x7684;&#x72B6;&#x6001;&#x503C;&#xFF0C;&#x7ED3;&#x679C;&#x662F;&#x5B83;&#xFF08;this.state&#xFF09;&#x603B;&#x662F;&#x548C;&#x5C4F;&#x5E55;&#x4E0A;&#x6E32;&#x67D3;&#x7684;&#x72B6;&#x6001;&#x76F8;&#x540C;&#x3002;  </p>
+<p>&#x8BA9;&#x6211;&#x4EEC;&#x56DE;&#x5230;&#x8BA1;&#x6570;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#x6765;&#x770B;&#x770B;&#x5B83;&#x662F;&#x5982;&#x4F55;&#x5DE5;&#x4F5C;&#x7684;&#x3002;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x6709;&#x4E00;&#x4E2A;&#x6BCF;&#x6B21;&#x5C06;&#x8BA1;&#x6570;&#x9012;&#x51CF;1&#x7684;&#x51FD;&#x6570;&#x3002;&#x51FD;&#x6570;&#x50CF;&#x4E0B;&#x9762;&#x8FD9;&#x6837;&#xFF1A;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">changeCount = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="keyword">this</span>.setState({ <span class="attr">count</span>: <span class="keyword">this</span>.state.count - <span class="number">1</span>})</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x7684;&#x662F;&#x80FD;&#x591F;&#x51CF;&#x53BB;3&#xFF0C;<code>changeCount()</code>&#x51FD;&#x6570;&#x88AB;&#x7ED1;&#x5B9A;&#x5728;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x4E0A;&#x7684;&#x8C03;&#x7528;&#x4E86;3&#x6B21;&#xFF0C;&#x50CF;&#x8FD9;&#x6837;&#xFF1A;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">handleDecrement = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="keyword">this</span>.changeCount()</span><br><span class="line">  <span class="keyword">this</span>.changeCount()</span><br><span class="line">  <span class="keyword">this</span>.changeCount()</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6BCF;&#x6B21;&#x51CF;&#x5C11;&#x7684;&#x6309;&#x94AE;&#x88AB;&#x70B9;&#x51FB;&#xFF0C;&#x8BA1;&#x6570;&#x51CF;&#x5C11;&#x4E86;1&#x800C;&#x4E0D;&#x662F;3&#x3002;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;<code>this.state.count</code>&#x76F4;&#x5230;&#x7EC4;&#x4EF6;&#x88AB;&#x91CD;&#x65B0;&#x6E32;&#x67D3;&#x4E4B;&#x540E;&#x624D;&#x8FDB;&#x884C;&#x4E86;&#x66F4;&#x65B0;&#x3002;&#x89E3;&#x51B3;&#x65B9;&#x5F0F;&#x662F;&#x4F7F;&#x7528;&#x66F4;&#x65B0;&#x5668;&#x3002;&#x66F4;&#x65B0;&#x5668;&#x5141;&#x8BB8;&#x4F60;&#x8BBF;&#x95EE;&#x5F53;&#x524D;&#x72B6;&#x6001;&#x5E76;&#x7ACB;&#x5373;&#x4F7F;&#x7528;&#x5B83;&#x6765;&#x66F4;&#x65B0;&#x5176;&#x4ED6;&#x9879;&#x76EE;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x7684;<code>changeCount()</code>&#x51FD;&#x6570;&#x5E94;&#x8BE5;&#x662F;&#x8FD9;&#x4E2A;&#x6837;&#x5B50;&#xFF1A;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">changeCount = <span class="function"><span class="params">()</span> =&gt;</span> {</span><br><span class="line">  <span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState</span>) =&gt;</span> {</span><br><span class="line">    <span class="keyword">return</span> { <span class="attr">count</span>: prevState.count - <span class="number">1</span>}</span><br><span class="line">  })</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x4E0D;&#x518D;&#x4F9D;&#x8D56;&#x4E8E;<code>this.state</code>&#x7684;&#x7ED3;&#x679C;&#x4E86;&#x3002;<code>count</code>&#x7684;&#x72B6;&#x6001;&#x5F7C;&#x6B64;&#x4F9D;&#x8D56;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x5728;&#x6BCF;&#x6B21;&#x8C03;&#x7528;<code>changeCount()</code>&#x4E4B;&#x540E;&#x83B7;&#x53D6;&#x5230;&#x51C6;&#x786E;&#x7684;&#x72B6;&#x6001;&#x503C;&#x3002;  </p>
+<p><code>setState()</code>&#x88AB;&#x89C6;&#x4E3A;&#x5F02;&#x6B65;&#x2014;&#x2014;&#x2014;&#x2014;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x4E0D;&#x8981;&#x603B;&#x662F;&#x671F;&#x5F85;&#x8C03;&#x7528;<code>setState()</code>&#x4E4B;&#x540E;&#xFF0C;&#x72B6;&#x6001;&#x5C31;&#x4F1A;&#x88AB;&#x6539;&#x53D8;&#x3002;  </p>
+<h2 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h2><p>&#x5728;&#x4F7F;&#x7528;<code>setState()</code>&#x65F6;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x77E5;&#x9053;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x7684;&#x51E0;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x4E00;&#x5B9A;&#x4F7F;&#x7528;<code>setState()</code>&#x6765;&#x66F4;&#x65B0;&#x7EC4;&#x4EF6;&#x72B6;&#x6001;</li>
+<li><code>setState()</code>&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x5BF9;&#x8C61;&#x6216;&#x8005;&#x51FD;&#x6570;</li>
+<li>&#x5F53;&#x591A;&#x6B21;&#x66F4;&#x65B0;&#x72B6;&#x6001;&#x65F6;&#xFF0C;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x51FD;&#x6570;</li>
+<li>&#x4E0D;&#x8981;&#x60F3;&#x5728;&#x8C03;&#x7528;<code>setState()</code>&#x540E;&#x7ACB;&#x5373;&#x80FD;&#x591F;&#x4F7F;&#x7528;this.state&#x83B7;&#x53D6;&#x51C6;&#x786E;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x4EE3;&#x66FF;&#x7684;&#x4F7F;&#x7528;&#x66F4;&#x65B0;&#x5668;&#x6765;&#x5B8C;&#x6210;&#x3002;</li>
+</ul>
+<h4 id="&#x539F;&#x6587;&#x8FDE;&#x63A5;"><a href="#&#x539F;&#x6587;&#x8FDE;&#x63A5;" class="headerlink" title="&#x539F;&#x6587;&#x8FDE;&#x63A5;"></a>&#x539F;&#x6587;&#x8FDE;&#x63A5;</h4><p><a href="https://css-tricks.com/understanding-react-setstate/?utm_source=ponyfoo+weekly&amp;utm_medium=email&amp;utm_campaign=113" target="_blank" rel="noopener">https://css-tricks.com/understanding-react-setstate/?utm_source=ponyfoo+weekly&amp;utm_medium=email&amp;utm_campaign=113</a></p>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/04/26/&#x5B66;&#x4E60;Webpack4-0/" data-toggle="tooltip" data-placement="top" title="&#x5B66;&#x4E60;Webpack4.0">Next Post &#x2192;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#&#x4E86;&#x89E3;React&#x4E2D;&#x7684;setState"><span class="toc-text">&#x4E86;&#x89E3;React&#x4E2D;&#x7684;setState</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#setState&#x7684;&#x5DE5;&#x4F5C;&#x673A;&#x5236;"><span class="toc-text">setState&#x7684;&#x5DE5;&#x4F5C;&#x673A;&#x5236;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#&#x5411;&#x2019;setState-&#x2019;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x51FD;&#x6570;"><span class="toc-text">&#x5411;&#x2019;setState()&#x2019;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x51FD;&#x6570;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#&#x4F7F;&#x7528;&#x66F4;&#x65B0;&#x5668;&#x8BBF;&#x95EE;&#x4E4B;&#x524D;&#x7684;&#x72B6;&#x6001;"><span class="toc-text">&#x4F7F;&#x7528;&#x66F4;&#x65B0;&#x5668;&#x8BBF;&#x95EE;&#x4E4B;&#x524D;&#x7684;&#x72B6;&#x6001;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#&#x603B;&#x7ED3;"><span class="toc-text">&#x603B;&#x7ED3;</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#&#x539F;&#x6587;&#x8FDE;&#x63A5;"><span class="toc-text">&#x539F;&#x6587;&#x8FDE;&#x63A5;</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &#xA9; Zwe1 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Author <a href="https://github.com/Zwe1" target="_Blank">Yao Zhang</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script>
+
+<img class="wechat-title-img" src="/img/logo.jpg">
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","opacity":1,"width":120,"height":150,"vOffset":25},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":false}});</script></body></html><!-- Main Content --><!--only post--><!-- Footer --><!-- Footer --><!--wechat title img-->
